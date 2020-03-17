@@ -20,7 +20,7 @@
     $goods_price = "8999";
 
     //PDO预处理 INSERT
-    $stmt = $dbh->prepare($sql);
+    $stmt = $dbh->prepare($sql);                    //准备SQL模板
     $stmt->bindParam(1,$goods_name);
     $stmt->bindParam(2,$goods_price);
 

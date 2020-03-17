@@ -19,7 +19,7 @@
 
     //准备SQL语句(PDO预处理 SELECT)
     $sql = "SELECT * FROM p_goods WHERE goods_name = ?";
-
+    //准备SQL模板
     $stmt = $dbh->prepare($sql);
     //绑定参数
     $stmt->bindParam(1,$goods_name);
