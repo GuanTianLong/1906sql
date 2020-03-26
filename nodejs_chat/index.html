@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线聊天室</title>
+</head>
+<style>
+
+</style>
+<body>
+
+            <textarea name="" id="content" cols="50" rows="10" style="border-style:inset;border-color: pink"></textarea><br>
+
+            <hr>
+
+            <input type="text" id="msg" style="color: lightslategray">
+
+            <button id="btn">发送</button>
+
+        <script src="/js/jquery.js"></script>
+        <script>
+                var nick_name = prompt("请输入昵称：");
+
+                var socket_host = "ws://192.168.198.198:8989";              //WebSocket服务器地址
+
+                var socket = new WebSocket(socket_host);
+
+                //给button绑定点击事件
+                $("#btn").on("click",function () {
+                    //获取文本框的值
+                    var msg = $("#msg").val()
+                    var data = {nick_name:nick_name,msg:msg}
+
+                    //发送JSON文本
+                    socket.send(JSON.stringify(data))
+
+                    //console.log(msg)
+                })
+
+                //客户端接收服务器的消息  接收到的消息格式为JSON字符串
+                socket.addEventListener('message',function (d) {
+                    //console.log(d);
+
+                    var json_obj = JSON.parse(d.data)
+
+                    //console.log(json_obj)
+
+                    var content = '['+json_obj.nick_name+']'+json_obj.msg +"\n"
+                    $("#content").append(content)
+
+                })
+
+
+
+
+        </script>
+</body>
+</html>
